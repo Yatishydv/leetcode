@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>> result;
+        vector<int> current;
+        
+        auto backtrack = [&](auto& self, int start, int target) -> void {
+            if (current.size() == k) {
+                if (target == 0) {
+                    result.push_back(current);
+                }
+                return;
+            }
+            for (int i = start; i <= 9; ++i) {
+                if (i > target) {
+                    break;
+                }
+                current.push_back(i);
+                self(self, i + 1, target - i);
+                current.pop_back();
+            }
+        };
+        
+        backtrack(backtrack, 1, n);
+        return result;
+    }
+};
